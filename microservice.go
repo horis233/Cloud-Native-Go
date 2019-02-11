@@ -4,11 +4,18 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+
+	"github.com/horis233/Cloud-Native-Go/api"
 )
 
 func main() {
 	http.HandleFunc("/", index)
-	http.HandleFunc("/api/echo", echo)
+	http.HandleFunc("/api/echo", api.EchoHandleFunc)
+	http.HandleFunc("/api/hello", api.HelloHandleFunc)
+
+	http.HandleFunc("/api/books", api.BooksHandleFunc)
+	http.HandleFunc("/api/books/", api.BookHandleFunc)
+
 	http.ListenAndServe(port(), nil)
 }
 
@@ -22,12 +29,5 @@ func port() string {
 
 func index(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "Hello Cloud Native Go.")
+	fmt.Fprintf(w, "Welcome to Cloud Native Go.")
 }
-
-func echo(w http.ResponseWriter, r *http.Request){
-	message := r.URL.Query()["message"][0]
-	w.Header().Add("Content-Type", "text/plain")
-	fmt.Fprintf(w, message)
-}
-
