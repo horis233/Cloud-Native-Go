@@ -8,5 +8,5 @@ COPY . ${SOURCES}
 
 RUN cd ${SOURCES} && CGO_ENABLED=0 go install -a
 
-ENTRYPOINT cloud-native-go
+ENTRYPOINT Cloud-Native-Go
 EXPOSE 8080
